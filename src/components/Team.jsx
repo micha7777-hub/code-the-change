@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { team } from '../content.js'
 import { photoFor } from '../teamPhotos.js'
@@ -121,10 +121,33 @@ function Portrait({ m, id }) {
   )
 }
 
+const PALETTE = ['#1d4ed8', '#0ea5e9', '#16a34a', '#7c3aed', '#f97316', '#db2777']
+const accentFor = (i) => PALETTE[i % PALETTE.length]
+
 function TeamSpotlight({ members, onOpen }) {
   const [active, setActive] = useState(0)
+  const frameRef = useRef(null)
   const m = members[active]
   const id = memberId(m, active)
+  const accent = accentFor(active)
+  const first = m.name.split(' ')[0]
+
+  // 3D tilt toward the cursor
+  const onMove = (e) => {
+    const el = frameRef.current
+    const r = el.getBoundingClientRect()
+    const px = (e.clientX - r.left) / r.width - 0.5
+    const py = (e.clientY - r.top) / r.height - 0.5
+    el.style.setProperty('--rx', `${-py * 10}deg`)
+    el.style.setProperty('--ry', `${px * 12}deg`)
+    el.style.setProperty('--mx', `${(px + 0.5) * 100}%`)
+    el.style.setProperty('--my', `${(py + 0.5) * 100}%`)
+  }
+  const onLeave = () => {
+    const el = frameRef.current
+    el.style.setProperty('--rx', '0deg')
+    el.style.setProperty('--ry', '0deg')
+  }
   return (
     <div className="container">
       <Reveal className="section-head">
@@ -140,10 +163,25 @@ function TeamSpotlight({ members, onOpen }) {
         </p>
       </Reveal>
 
-      <div className="spot">
+      <div className="spot" style={{ '--accent': accent }}>
+        <div className="spot__ghost" aria-hidden="true">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={id}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {first}
+            </motion.span>
+          </AnimatePresence>
+        </div>
         <Reveal className="spot__left" y={20}>
           <div className="spot__sticky">
-            <div className="spot__frame">
+            <div className="spot__glow" />
+            <div className="spot__frame" ref={frameRef} onMouseMove={onMove} onMouseLeave={onLeave}>
+              <div className="spot__shine" />
               <AnimatePresence mode="sync" initial={false}>
                 <Portrait m={m} id={id} key={id} />
               </AnimatePresence>
@@ -178,6 +216,7 @@ function TeamSpotlight({ members, onOpen }) {
               <button
                 type="button"
                 className={`spot__row ${i === active ? 'spot__row--active' : ''}`}
+                style={{ '--accent': accentFor(i) }}
                 onMouseEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
                 onClick={() => onOpen(i)}

@@ -2973,3 +2973,253 @@ button.member:focus-visible {
 button.member:focus-visible .avatar {
   box-shadow: 0 0 0 3px var(--blue);
 }
+
+/* ───────────────────────────── WOW pass ───────────────────────────── */
+:root {
+  --orange: #f97316;
+  --pink: #db2777;
+}
+
+/* Team spotlight: per-person accent, glow, tilt, ghost name */
+.spot {
+  position: relative;
+}
+.spot__ghost {
+  position: absolute;
+  right: -2vw;
+  top: -40px;
+  z-index: 0;
+  pointer-events: none;
+  font-size: clamp(120px, 16vw, 240px);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--accent) 35%, transparent);
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  transition: -webkit-text-stroke-color 0.5s;
+}
+.spot__ghost span {
+  display: inline-block;
+}
+.spot__left,
+.spot__list {
+  position: relative;
+  z-index: 1;
+}
+.spot__sticky {
+  position: sticky;
+  perspective: 1000px;
+}
+.spot__glow {
+  position: absolute;
+  inset: -8% -12% 18% -12%;
+  border-radius: 40px;
+  background: radial-gradient(60% 55% at 30% 30%, color-mix(in srgb, var(--accent) 55%, transparent), transparent 70%),
+    radial-gradient(50% 50% at 80% 80%, color-mix(in srgb, var(--accent) 35%, #0ea5e9 30%), transparent 70%);
+  filter: blur(36px);
+  opacity: 0.7;
+  z-index: -1;
+  transition: background 0.6s;
+  animation: glowDrift 9s ease-in-out infinite alternate;
+}
+@keyframes glowDrift {
+  from {
+    transform: translate(-3%, -2%) scale(1);
+  }
+  to {
+    transform: translate(3%, 3%) scale(1.06);
+  }
+}
+.spot__frame {
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.45s var(--ease), box-shadow 0.5s;
+  transform-style: preserve-3d;
+  box-shadow: 0 40px 80px -36px color-mix(in srgb, var(--accent) 60%, #0b1220), 0 10px 24px -14px rgba(11, 18, 32, 0.3);
+  border: 2px solid color-mix(in srgb, var(--accent) 35%, #fff);
+}
+.spot__shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.28), transparent 45%);
+  mix-blend-mode: soft-light;
+}
+.spot__counter {
+  background: color-mix(in srgb, var(--accent) 85%, #000);
+  color: #fff;
+}
+.spot__meta .tag {
+  background: color-mix(in srgb, var(--accent) 14%, #fff);
+  color: var(--accent);
+}
+.spot__meta h3 {
+  background: linear-gradient(100deg, var(--ink) 40%, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.spot__meta .btn--ghost {
+  border-color: color-mix(in srgb, var(--accent) 35%, #fff);
+}
+.spot__meta .btn--ghost:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.spot__row {
+  position: relative;
+}
+.spot__row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transition: transform 0.3s var(--ease);
+}
+.spot__row--active::before {
+  transform: scaleY(1);
+}
+.spot__row--active .spot__num,
+.spot__row--active .spot__name {
+  color: var(--accent);
+}
+.spot__row--active .spot__role {
+  background: color-mix(in srgb, var(--accent) 14%, #fff);
+  color: var(--accent);
+}
+.spot__row--active .spot__arrow {
+  background: var(--accent);
+}
+.spot__row:hover {
+  background: color-mix(in srgb, var(--accent) 6%, #fff);
+}
+
+/* Section accents: each section gets its own colour */
+#about {
+  --sec: var(--blue);
+}
+#meetings {
+  --sec: var(--sky);
+}
+#projects {
+  --sec: var(--green);
+}
+#semester {
+  --sec: var(--violet);
+}
+#team {
+  --sec: var(--orange);
+}
+#connect {
+  --sec: var(--pink);
+}
+.section .eyebrow {
+  color: var(--sec, var(--blue));
+}
+.section .eyebrow::before {
+  background: var(--sec, var(--blue));
+}
+.section .eyebrow b {
+  color: color-mix(in srgb, var(--sec, var(--blue)) 55%, #fff);
+}
+.h2::selection {
+  background: var(--sec, var(--blue));
+}
+/* soft colour wash in the corner of every section */
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(640px circle at 100% 0%, color-mix(in srgb, var(--sec, var(--blue)) 12%, transparent), transparent 60%);
+  z-index: 0;
+}
+.section > .container {
+  position: relative;
+  z-index: 1;
+}
+/* project cards: coloured top edge */
+.project::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: var(--c, var(--blue));
+  opacity: 0.9;
+}
+/* marquee: coloured words */
+.marquee__item:nth-child(5n + 1) {
+  color: var(--blue);
+}
+.marquee__item:nth-child(5n + 2) {
+  color: #0369a1;
+}
+.marquee__item:nth-child(5n + 3) {
+  color: var(--green);
+}
+.marquee__item:nth-child(5n + 4) {
+  color: var(--violet);
+}
+.marquee__item:nth-child(5n) {
+  color: var(--orange);
+}
+/* hero fact dots + ghost shimmer on the primary button */
+.fact__label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background: var(--blue);
+  vertical-align: middle;
+}
+.fact:nth-child(2) .fact__label::before {
+  background: var(--green);
+}
+.fact:nth-child(3) .fact__label::before {
+  background: var(--orange);
+}
+.btn--primary {
+  background: linear-gradient(120deg, #1d4ed8, #2563eb 55%, #0ea5e9);
+  background-size: 200% 100%;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background-position 0.6s;
+}
+.btn--primary:hover {
+  background-position: 100% 0;
+}
+/* footer gradient edge */
+.footer {
+  border-top: 0;
+  position: relative;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--sky), var(--green), var(--violet), var(--orange), var(--pink));
+}
+/* meetings + team tinted sections get colour, not grey */
+#meetings.section--tint {
+  background: linear-gradient(180deg, #f3f9ff, #f7f9fd);
+}
+#team.section--tint {
+  background: linear-gradient(180deg, #fff8f3, #f7f9fd);
+}
