@@ -25,6 +25,7 @@ export default function HeroCanvas() {
 
     const BLUE = [29, 78, 216]
     const SKY = [14, 165, 233]
+    const GREEN = [34, 197, 94]
 
     const resize = () => {
       const rect = canvas.parentElement.getBoundingClientRect()
@@ -47,7 +48,7 @@ export default function HeroCanvas() {
         vx: (Math.random() - 0.5) * 0.25,
         vy: (Math.random() - 0.5) * 0.25,
         r: 1.2 + Math.random() * 1.8,
-        hue: Math.random() < 0.8 ? BLUE : SKY,
+        hue: (() => { const r = Math.random(); return r < 0.65 ? BLUE : r < 0.88 ? SKY : GREEN })(),
         phase: Math.random() * Math.PI * 2,
       }))
     }

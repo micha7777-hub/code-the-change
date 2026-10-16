@@ -2464,3 +2464,178 @@ button.member {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ───────────────────────────── Color pass ─────────────────────────────
+   White + blue base, with the logo's sky blue and green as accents. */
+:root {
+  --green: #16a34a;
+  --green-soft: #dcfce7;
+  --sky-soft: #e0f2fe;
+  --violet: #6d28d9;
+  --violet-soft: #ede9fe;
+  --grad: linear-gradient(100deg, #1d4ed8 0%, #0ea5e9 55%, #22c55e 100%);
+}
+
+/* Hero: gradient "Change." and a soft colored wash */
+.hero__title .accent .decode {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(900px circle at 85% 15%, rgba(14, 165, 233, 0.1), transparent 60%),
+    radial-gradient(700px circle at 10% 90%, rgba(34, 197, 94, 0.07), transparent 60%);
+  pointer-events: none;
+}
+.nav__progress {
+  background: var(--grad);
+}
+.rotator {
+  color: var(--sky);
+}
+
+/* Marquee dots cycle through the palette */
+.marquee__item:nth-child(3n + 2)::after {
+  background: var(--sky);
+}
+.marquee__item:nth-child(3n)::after {
+  background: var(--green);
+}
+
+/* Colored icon tiles: blue, sky, green, violet */
+.pillar:nth-child(4n + 2) .pillar__icon,
+.feature:nth-child(3n + 2) .feature__icon {
+  background: var(--sky-soft);
+  color: #0369a1;
+}
+.pillar:nth-child(4n + 3) .pillar__icon,
+.feature:nth-child(3n) .feature__icon {
+  background: var(--green-soft);
+  color: var(--green);
+}
+.pillar:nth-child(4n) .pillar__icon {
+  background: var(--violet-soft);
+  color: var(--violet);
+}
+
+/* Stats: each suffix its own accent, with a colored top bar */
+.stat {
+  position: relative;
+}
+.stat::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  width: 36px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--blue);
+}
+.stat:nth-child(2)::before,
+.stat:nth-child(2) .stat__value em {
+  background: var(--sky);
+}
+.stat:nth-child(3)::before {
+  background: var(--green);
+}
+.stat:nth-child(4)::before {
+  background: var(--violet);
+}
+.stat:nth-child(2) .stat__value em {
+  background: none;
+  color: var(--sky);
+}
+.stat:nth-child(3) .stat__value em {
+  color: var(--green);
+}
+.stat:nth-child(4) .stat__value em {
+  color: var(--violet);
+}
+
+/* Meeting card and photo tile: blue → sky gradients */
+.meet__schedule {
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 45%, #0ea5e9 100%);
+}
+.photo--caption {
+  background-color: transparent;
+  background-image: radial-gradient(circle at 80% 10%, rgba(134, 239, 172, 0.45), transparent 55%),
+    linear-gradient(135deg, #1d4ed8, #0ea5e9);
+}
+
+/* Event tags by type */
+.meet__row:nth-child(2) .tag {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+/* Fall 2026 card: add a green glow, colored milestone bars */
+.sem__hero-bg {
+  background: radial-gradient(700px circle at 85% 0%, rgba(37, 99, 235, 0.6), transparent 55%),
+    radial-gradient(500px circle at 0% 100%, rgba(34, 197, 94, 0.28), transparent 55%),
+    radial-gradient(400px circle at 50% 50%, rgba(14, 165, 233, 0.15), transparent 60%);
+}
+.sem__launch-date {
+  background: linear-gradient(100deg, #fff 20%, #7dd3fc 70%, #86efac 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ms__fill {
+  background: var(--grad);
+}
+
+/* Team: colored avatar rings */
+.member:nth-child(4n + 2) .avatar {
+  color: #0369a1;
+  background: linear-gradient(135deg, var(--sky-soft), #fff);
+  border-color: #bae6fd;
+}
+.member:nth-child(4n + 3) .avatar {
+  color: var(--green);
+  background: linear-gradient(135deg, var(--green-soft), #fff);
+  border-color: #bbf7d0;
+}
+.member:nth-child(4n) .avatar {
+  color: var(--violet);
+  background: linear-gradient(135deg, var(--violet-soft), #fff);
+  border-color: #ddd6fe;
+}
+
+/* Connect: social icons in brand-adjacent colors on hover, CTA band glow */
+.link-card:hover .link-card__icon {
+  background: var(--blue);
+}
+.link-card:nth-child(3):hover .link-card__icon {
+  background: #5865f2;
+}
+.link-card:nth-child(4):hover .link-card__icon {
+  background: var(--green);
+}
+.link-card:nth-child(5):hover .link-card__icon {
+  background: linear-gradient(135deg, #f97316, #db2777, #7c3aed);
+}
+.link-card:nth-child(6):hover .link-card__icon {
+  background: #0a66c2;
+}
+.link-card--primary {
+  background: linear-gradient(120deg, #1d4ed8, #0ea5e9);
+  border-color: transparent;
+}
+.link-card--primary:hover {
+  background: linear-gradient(120deg, #1e40af, #0284c7);
+}
+.cta-band::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  left: -180px;
+  bottom: -320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.35), transparent 60%);
+}

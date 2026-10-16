@@ -238,7 +238,7 @@ export const semester = {
     { title: 'Testing & polish', end: '2026-12-06' },
     { title: 'Launch', end: '2026-12-13' },
   ],
-  cta: { label: 'Want to work on this? Apply for a team', href: 'https://forms.gle/zdyDu1A45vYFhv5B8' },
+  cta: { label: 'Want to work on this? Come to our meetings', href: DVCSYNC },
 }
 
 export const connect = {
