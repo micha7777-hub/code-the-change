@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { projects } from '../content.js'
+import Rich from './Rich.jsx'
 import Reveal, { Stagger, item } from './Reveal.jsx'
 
 function TiltCard({ p, index }) {
@@ -70,7 +71,7 @@ export default function Projects() {
       <div className="container">
         <Reveal className="section-head">
           <span className="eyebrow"><b>03</b> Projects</span>
-          <h2 className="h2">{projects.heading}</h2>
+          <h2 className="h2"><Rich text={projects.heading} /></h2>
           <p className="lead">{projects.sub}</p>
         </Reveal>
         <Stagger className="projects__grid" gap={0.1}>

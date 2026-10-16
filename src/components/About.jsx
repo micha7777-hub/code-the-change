@@ -3,6 +3,7 @@ import { about, stats } from '../content.js'
 import Reveal, { Stagger, item } from './Reveal.jsx'
 import CountUp from './CountUp.jsx'
 import { Icon } from './Icons.jsx'
+import Rich from './Rich.jsx'
 
 function trackMouse(e) {
   const r = e.currentTarget.getBoundingClientRect()
@@ -19,12 +20,12 @@ export default function About() {
             <Reveal>
               <div className="section-head" style={{ marginBottom: 28 }}>
                 <span className="eyebrow"><b>01</b> What we are</span>
-                <h2 className="h2">{about.heading}</h2>
+                <h2 className="h2"><Rich text={about.heading} /></h2>
               </div>
             </Reveal>
             <Reveal delay={0.1} className="about__body">
               {about.body.map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i}><Rich text={p} /></p>
               ))}
             </Reveal>
           </div>

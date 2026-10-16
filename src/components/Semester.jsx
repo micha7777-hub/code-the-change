@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { semester } from '../content.js'
 import Reveal, { Stagger, item } from './Reveal.jsx'
 import { Icon } from './Icons.jsx'
+import Rich from './Rich.jsx'
 
 const DAY = 86400000
 
@@ -72,7 +73,7 @@ export default function Semester() {
           <span className="eyebrow">
             <b>04</b> {s.eyebrow}
           </span>
-          <h2 className="h2">{s.heading}</h2>
+          <h2 className="h2"><Rich text={s.heading} /></h2>
           <p className="lead">{s.sub}</p>
         </Reveal>
 

@@ -1,6 +1,7 @@
 import { meetings } from '../content.js'
 import Reveal from './Reveal.jsx'
 import { Icon } from './Icons.jsx'
+import Rich from './Rich.jsx'
 
 export default function Meetings() {
   const { schedule, location, next, timeline } = meetings
@@ -10,7 +11,7 @@ export default function Meetings() {
       <div className="container">
         <Reveal className="section-head">
           <span className="eyebrow"><b>02</b> Meetings</span>
-          <h2 className="h2">{meetings.heading}</h2>
+          <h2 className="h2"><Rich text={meetings.heading} /></h2>
           <p className="lead">{meetings.sub}</p>
         </Reveal>
 

@@ -4,6 +4,7 @@ import { team } from '../content.js'
 import { photoFor } from '../teamPhotos.js'
 import Reveal, { Stagger, item } from './Reveal.jsx'
 import { Icon } from './Icons.jsx'
+import Rich from './Rich.jsx'
 
 const initials = (name) =>
   name
@@ -167,7 +168,7 @@ function TeamSpotlight({ members, onOpen }) {
         <span className="eyebrow">
           <b>05</b> Our team
         </span>
-        <h2 className="h2">{team.heading}</h2>
+        <h2 className="h2"><Rich text={team.heading} /></h2>
         <p className="lead">
           {team.sub} Hover a name to see who it is, click to meet them.{' '}
           <a href={team.rosterUrl} target="_blank" rel="noreferrer" className="lead__link">
@@ -253,7 +254,7 @@ function TeamSimple({ members, onOpen }) {
         <span className="eyebrow">
           <b>05</b> Our team
         </span>
-        <h2 className="h2">{team.heading}</h2>
+        <h2 className="h2"><Rich text={team.heading} /></h2>
         <p className="lead">{team.sub} Tap anyone to meet them.</p>
       </Reveal>
       <Stagger className="team__grid" gap={0.05}>

@@ -62,10 +62,10 @@ export const stats = [
 ]
 
 export const about = {
-  heading: 'Built by students. Built for the community.',
+  heading: 'Built by students. Built *for the community.*',
   body: [
-    'Code the Change, as the name suggests, is a club where students use their coding and technical skills to drive social change. We gather enthusiastic students willing to share their talents and abilities to make a difference in the community.',
-    'Each semester we collaborate with nonprofit organizations and support their mission with technical work — software development, website creation, and much more. Along the way you gain hands-on experience on real projects, sharpen your programming skills, and meet like-minded students who share your goals.',
+    'Code the Change, as the name suggests, is a club where students use their coding and technical skills to **drive social change**. We gather enthusiastic students willing to share their talents and abilities to make a difference in the community.',
+    'Each semester we collaborate with **nonprofit organizations** and support their mission with technical work — software development, website creation, and much more. Along the way you gain **hands-on experience on real projects**, sharpen your programming skills, and meet like-minded students who share your goals.',
   ],
   photos: [
     { src: '/gallery/meeting-portrait.jpg', alt: 'Code the Change members at a general meeting in MA-101' },
@@ -97,8 +97,20 @@ export const about = {
   ],
 }
 
+// Photo strip between About and Meetings
+export const gallery = {
+  items: [
+    { src: '/gallery/meeting-wide.jpg', caption: 'General meeting · MA-101', rotate: -2 },
+    { src: '/gallery/showcase-spring-2024.jpg', caption: 'Final project showcase', rotate: 1.5 },
+    { src: '/gallery/meeting-portrait.jpg', caption: 'Team photo', rotate: -1 },
+    { src: '/gallery/pitbull-rescue.png', caption: 'Shipped · California Pitbull Rescue', rotate: 2 },
+    { src: '/gallery/meeting-4.jpg', caption: 'Fall kickoff', rotate: -1.5 },
+    { src: '/gallery/gm3-spring-2024.jpg', caption: 'GM3 · project research', rotate: 1 },
+  ],
+}
+
 export const meetings = {
-  heading: 'Where to find us.',
+  heading: 'Where to *find us.*',
   sub: 'General meetings are open to everyone — no coding experience required.',
   schedule: {
     day: 'Wednesday',
@@ -133,7 +145,7 @@ export const meetings = {
 }
 
 export const projects = {
-  heading: 'What we build.',
+  heading: 'What we *build.*',
   sub: 'Every semester, small teams ship real software for real organizations.',
   items: [
     {
@@ -187,7 +199,7 @@ export const projects = {
 }
 
 export const team = {
-  heading: 'The people behind it.',
+  heading: 'The people *behind it.*',
   sub: 'Officers and project leads who keep the club running.',
   // PHOTOS: drop an image into src/assets/team/ named after the member
   // (e.g. aaron-timothy-soetopo.jpg) and it is picked up automatically.
@@ -228,7 +240,7 @@ export const team = {
 export const semester = {
   label: 'Fall 2026',
   eyebrow: 'This semester',
-  heading: 'IFGF Pinole Central App.',
+  heading: 'IFGF Pinole *Central App.*',
   sub: 'Our Fall 2026 nonprofit build: a church app for IFGF Pinole, launching Sunday, December 13.',
   client: { name: 'IFGF Pinole', type: 'Church · Pinole, CA' },
   lead: 'Aaron Timothy Soetopo',
@@ -258,7 +270,7 @@ export const semester = {
 }
 
 export const connect = {
-  heading: 'Get involved.',
+  heading: 'Get *involved.*',
   sub: 'Three steps and you are in. No application, no experience required.',
   steps: [
     { n: '01', title: 'Join on DVCsync', text: 'Register as a member so you get every event and announcement from the college.' },

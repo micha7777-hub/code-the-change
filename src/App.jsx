@@ -1,6 +1,7 @@
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
 import About from './components/About.jsx'
+import PhotoStrip from './components/PhotoStrip.jsx'
 import Meetings from './components/Meetings.jsx'
 import Projects from './components/Projects.jsx'
 import Semester from './components/Semester.jsx'
@@ -15,6 +16,7 @@ export default function App() {
       <main>
         <Hero />
         <About />
+        <PhotoStrip />
         <Meetings />
         <Projects />
         <Semester />

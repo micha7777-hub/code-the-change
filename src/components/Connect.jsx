@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { connect, site } from '../content.js'
 import Reveal, { Stagger, item } from './Reveal.jsx'
 import { Icon } from './Icons.jsx'
+import Rich from './Rich.jsx'
 
 export default function Connect() {
   return (
@@ -9,7 +10,7 @@ export default function Connect() {
       <div className="container">
         <Reveal className="section-head">
           <span className="eyebrow"><b>06</b> How to connect</span>
-          <h2 className="h2">{connect.heading}</h2>
+          <h2 className="h2"><Rich text={connect.heading} /></h2>
           <p className="lead">{connect.sub}</p>
         </Reveal>
 
