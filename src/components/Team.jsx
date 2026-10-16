@@ -314,6 +314,7 @@ function TeamStage({ members, onOpen }) {
                 <div className="member__info" ref={(el) => (infoRefs.current[i] = el)}>
                   <div className="member__name">{m.name}</div>
                   <div className="member__role">{m.role}</div>
+                  {m.major && <div className="member__major">{m.major}</div>}
                 </div>
                 <span className="member__view">View</span>
               </button>
@@ -343,6 +344,7 @@ function TeamSimple({ members, onOpen }) {
             <div className="member__info">
               <div className="member__name">{m.name}</div>
               <div className="member__role">{m.role}</div>
+              {m.major && <div className="member__major">{m.major}</div>}
             </div>
           </motion.button>
         ))}

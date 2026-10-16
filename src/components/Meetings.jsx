@@ -4,6 +4,7 @@ import { Icon } from './Icons.jsx'
 
 export default function Meetings() {
   const { schedule, location, next, timeline } = meetings
+  const past = next.iso && new Date(next.iso + 'T23:59:59').getTime() < Date.now()
   return (
     <section className="section section--tint dots" id="meetings">
       <div className="container">
@@ -61,7 +62,7 @@ export default function Meetings() {
               <img src={next.image} alt="" loading="lazy" />
             </a>
             <div className="meet__next-body">
-              <span className="eyebrow">Next up</span>
+              <span className="eyebrow">{past ? 'Most recent' : 'Next up'}</span>
               <h3>{next.title}</h3>
               <div className="meet__next-meta">
                 <span>
@@ -72,8 +73,8 @@ export default function Meetings() {
                 </span>
               </div>
               <p>{next.blurb}</p>
-              <a href={next.href} target="_blank" rel="noreferrer" className="btn btn--primary btn--sm">
-                RSVP on DVCsync <Icon.arrow className="arrow" />
+              <a href={past ? meetings.allEventsUrl : next.href} target="_blank" rel="noreferrer" className="btn btn--primary btn--sm">
+                {past ? 'See upcoming events' : 'RSVP on DVCsync'} <Icon.arrow className="arrow" />
               </a>
             </div>
           </Reveal>

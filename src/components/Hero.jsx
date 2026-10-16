@@ -61,6 +61,7 @@ export default function Hero() {
           </motion.div>
 
           <div className="hero__body">
+            <div className="hero__text">
             <motion.div className="hero__eyebrow" {...fade(0.25)}>
               <span className="dot" />
               {hero.eyebrow}
@@ -94,6 +95,25 @@ export default function Hero() {
                 {hero.secondaryCta.label}
               </a>
             </motion.div>
+            </div>
+
+            {/* Photo stack: three tilted meeting photos that settle into place */}
+            <div className="hero__stack" aria-hidden="true">
+              {hero.photos.map((p, i) => (
+                <motion.figure
+                  className="hero__card"
+                  key={p.src}
+                  initial={{ opacity: 0, y: 60, rotate: p.rotate * 2, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, rotate: p.rotate, scale: 1 }}
+                  transition={{ duration: 1.1, delay: 0.9 + i * 0.18, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ rotate: 0, scale: 1.04, zIndex: 5 }}
+                  style={{ '--x': p.x, '--y': p.y, zIndex: i }}
+                >
+                  <img src={p.src} alt="" loading="eager" />
+                  <figcaption className="mono">{p.caption}</figcaption>
+                </motion.figure>
+              ))}
+            </div>
           </div>
 
           <motion.div className="hero__foot" {...fade(1.5)}>

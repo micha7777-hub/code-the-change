@@ -38,6 +38,12 @@ export const hero = {
     'We are a community of Diablo Valley College students who build real software for nonprofits — and learn to lead while doing it.',
   primaryCta: { label: 'Join the club', href: DVCSYNC, external: true },
   secondaryCta: { label: 'See our projects', href: '#projects' },
+  // Tilted photo stack on the right of the hero (desktop only)
+  photos: [
+    { src: '/gallery/meeting-4.jpg', caption: 'General meeting · MA-101', rotate: -6, x: '0%', y: '8%' },
+    { src: '/gallery/meeting-portrait.jpg', caption: 'Team photo', rotate: 4, x: '34%', y: '-4%' },
+    { src: '/gallery/pitbull-rescue.png', caption: 'Shipped · California Pitbull Rescue', rotate: -2, x: '14%', y: '46%' },
+  ],
   facts: [
     { label: 'Chapter', value: 'Diablo Valley College' },
     { label: 'Meetings', value: 'Wednesdays · 4–5 PM' },
@@ -106,8 +112,10 @@ export const meetings = {
     mapUrl: 'https://maps.google.com/?q=Diablo+Valley+College+Pleasant+Hill',
   },
   // The featured next event (shown with its cover image)
+  // Set `iso` to the event date; once it passes, the card switches to "Most recent".
   next: {
     title: 'Second General Meeting',
+    iso: '2026-10-07',
     date: 'Wednesday, October 7',
     time: '4:00 – 5:00 PM',
     where: 'MA-101',
@@ -189,17 +197,24 @@ export const team = {
     {
       name: 'Aaron Timothy Soetopo',
       role: 'President',
-      photo: '',
+      major: '',
       bio: 'Runs the club and leads this semester’s IFGF Pinole Central App build.',
-      links: {},
     },
-    { name: 'Jayden Susanto', role: 'Treasurer', photo: '', bio: '', links: {} },
-    { name: 'Ethan Muntu', role: 'Inter-Club Council Rep', photo: '', bio: '', links: {} },
-    { name: 'Peikun Tsai', role: 'Advisor', photo: '', bio: '', links: {} },
-    { name: 'Officer name', role: 'Vice President', photo: '', bio: '', links: {} },
-    { name: 'Officer name', role: 'Secretary', photo: '', bio: '', links: {} },
-    { name: 'Officer name', role: 'Marketing', photo: '', bio: '', links: {} },
-    { name: 'Officer name', role: 'Project Lead', photo: '', bio: '', links: {} },
+    { name: 'Jayden Tanzil Susanto', role: 'Treasurer', major: 'Business' },
+    { name: 'Ethan Manuel Muntu', role: 'Inter-Club Council Rep', major: 'Mechanical Engineering' },
+    { name: 'Micha Iswaranata', role: 'Officer', major: 'Electrical Engineering & Computer Science' },
+    { name: 'Justin Veda', role: 'Officer', major: 'Electrical Engineering & Computer Science' },
+    { name: 'Preston', role: 'Officer', major: 'Electrical Engineering & Computer Science' },
+    { name: 'Shraddha Pallerla', role: 'Officer', major: 'Civil Engineering' },
+    { name: 'Troy Boussarath', role: 'Officer', major: 'Computer Science' },
+    { name: 'Celinia Zelim', role: 'Officer', major: 'Mechanical Engineering' },
+    { name: 'Ashton Luman', role: 'Officer', major: 'Business' },
+    { name: 'Reagan', role: 'Officer', major: 'Data Science' },
+    { name: 'Aaron Iskandar', role: 'Officer', major: 'Data Science' },
+    { name: 'Jayven Liauw', role: 'Officer', major: 'Data Science' },
+    { name: 'Kingston Li', role: 'Officer', major: 'Industrial Engineering' },
+    { name: 'Ethan Alexander Saputra', role: 'Officer', major: 'Data Science' },
+    { name: 'Peikun Tsai', role: 'Advisor', major: '' },
   ],
   rosterUrl: `${DVCSYNC}/roster`,
 }
