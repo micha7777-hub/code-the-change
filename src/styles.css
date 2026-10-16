@@ -2800,3 +2800,176 @@ button.member {
   padding: 0.06em 0.08em 0.22em 0;
   margin: -0.06em -0.08em -0.22em 0;
 }
+
+/* ───────────────────────────── Team: spotlight roster ───────────────────────────── */
+.spot {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) 1.35fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+.spot__sticky {
+  position: sticky;
+  top: calc(var(--nav-h) + 24px);
+}
+.spot__frame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--blue-soft), #fff);
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 60px -30px rgba(11, 18, 32, 0.35), 0 10px 24px -14px rgba(29, 78, 216, 0.3);
+}
+.spot__img {
+  position: absolute;
+  inset: 0;
+}
+.spot__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.spot__img--initials {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #1e40af, #0ea5e9);
+  color: #fff;
+  font-size: 96px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+.spot__counter {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--ink-2);
+  font-size: 11px;
+}
+.spot__meta {
+  margin-top: 20px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.spot__meta h3 {
+  margin-top: 10px;
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.spot__meta p {
+  margin-top: 4px;
+  color: var(--ink-3);
+  font-size: 15px;
+}
+.spot__list {
+  display: grid;
+  border-top: 1px solid var(--line-2);
+}
+.spot__row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 36px 1.3fr 1fr auto 28px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 10px 16px 6px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.25s, padding-left 0.35s var(--ease);
+  outline: none;
+}
+.spot__row:hover,
+.spot__row--active {
+  background: rgba(255, 255, 255, 0.8);
+  padding-left: 14px;
+}
+.spot__row:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--blue);
+}
+.spot__num {
+  color: var(--ink-4);
+  font-size: 11px;
+}
+.spot__row--active .spot__num {
+  color: var(--blue);
+}
+.spot__name {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-size: 16px;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+.spot__row--active .spot__name {
+  color: var(--blue);
+}
+.spot__major {
+  font-size: 13.5px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.spot__role {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--bg-3);
+  white-space: nowrap;
+}
+.spot__row--active .spot__role {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+.spot__arrow {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--ink-4);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.2s, transform 0.3s var(--ease), background 0.2s, color 0.2s;
+}
+.spot__arrow svg {
+  width: 14px;
+  height: 14px;
+}
+.spot__row--active .spot__arrow {
+  opacity: 1;
+  transform: none;
+  background: var(--blue);
+  color: #fff;
+}
+@media (max-width: 1100px) {
+  .spot__row {
+    grid-template-columns: 36px 1fr auto 28px;
+  }
+  .spot__major {
+    display: none;
+  }
+}
+
+/* buttons that render as member cards shouldn't get the page-wide focus ring */
+button.member:focus-visible {
+  outline: none;
+}
+button.member:focus-visible .avatar {
+  box-shadow: 0 0 0 3px var(--blue);
+}
