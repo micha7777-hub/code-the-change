@@ -3223,3 +3223,153 @@ button.member:focus-visible .avatar {
 #team.section--tint {
   background: linear-gradient(180deg, #fff8f3, #f7f9fd);
 }
+
+/* ───────────────────────────── Professional colour pass ─────────────────────────────
+   Restrained palette: navy, blue, sky, a touch of green. Colour arrives in solid blocks,
+   not in rainbows. Overrides the earlier "wow" rules. */
+:root {
+  --navy: #0b1b3a;
+  --navy-2: #102454;
+}
+/* Team: single blue accent, calmer glow */
+.spot__glow {
+  background: radial-gradient(60% 55% at 30% 30%, rgba(29, 78, 216, 0.35), transparent 70%),
+    radial-gradient(50% 50% at 80% 80%, rgba(14, 165, 233, 0.25), transparent 70%);
+  opacity: 0.6;
+  animation: none;
+}
+.spot__frame {
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 60px -30px rgba(29, 78, 216, 0.45), 0 10px 24px -14px rgba(11, 18, 32, 0.3);
+}
+.spot__meta h3 {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--ink);
+}
+.spot__counter {
+  background: var(--navy);
+}
+#team {
+  --sec: var(--blue);
+}
+#team.section--tint {
+  background: linear-gradient(180deg, #f4f7fd, #f7f9fd);
+}
+
+/* Section accents limited to blue / sky / green */
+#connect {
+  --sec: var(--blue);
+}
+#semester {
+  --sec: var(--blue);
+}
+.section::before {
+  background: radial-gradient(640px circle at 100% 0%, color-mix(in srgb, var(--sec, var(--blue)) 9%, transparent), transparent 60%);
+}
+
+/* Marquee: a solid blue-tinted band, single text colour */
+.marquee {
+  background: var(--blue-tint);
+  border-color: #dbe4ff;
+}
+.marquee__item,
+.marquee__item:nth-child(5n + 1),
+.marquee__item:nth-child(5n + 2),
+.marquee__item:nth-child(5n + 3),
+.marquee__item:nth-child(5n + 4),
+.marquee__item:nth-child(5n) {
+  color: var(--blue);
+}
+.marquee__item::after,
+.marquee__item:nth-child(3n + 2)::after,
+.marquee__item:nth-child(3n)::after {
+  background: var(--sky);
+}
+
+/* Stats: navy block with light numerals */
+.stats {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 60%, #1e3a8a 100%);
+  border-color: transparent;
+}
+.stat {
+  border-right-color: rgba(255, 255, 255, 0.1);
+}
+.stat::before {
+  display: none;
+}
+.stat__value {
+  color: #fff;
+}
+.stat__value em,
+.stat:nth-child(2) .stat__value em,
+.stat:nth-child(3) .stat__value em,
+.stat:nth-child(4) .stat__value em {
+  color: #7dd3fc;
+}
+.stat__label {
+  color: #94a3b8;
+}
+@media (max-width: 900px) {
+  .stat:nth-child(-n + 2) {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Hero facts: one colour */
+.fact__label::before,
+.fact:nth-child(2) .fact__label::before,
+.fact:nth-child(3) .fact__label::before {
+  background: var(--blue);
+}
+
+/* Meetings: deeper sky tint so the section reads as its own block */
+#meetings.section--tint {
+  background: linear-gradient(180deg, #eef5ff, #f4f8ff);
+  border-color: #dbe7fb;
+}
+
+/* Connect CTA band: navy → blue gradient instead of near-black */
+.cta-band {
+  background: linear-gradient(120deg, var(--navy) 0%, #1e3a8a 55%, #1d4ed8 100%);
+}
+.cta-band::before,
+.cta-band::after {
+  display: none;
+}
+.cta-band p {
+  color: #bfdbfe;
+}
+
+/* Footer: navy */
+.footer {
+  background: var(--navy);
+  color: #cbd5e1;
+}
+.footer::before {
+  background: var(--blue);
+  height: 2px;
+}
+.footer .brand {
+  color: #fff;
+}
+.footer .brand__school {
+  color: #94a3b8;
+  border-left-color: rgba(255, 255, 255, 0.15);
+}
+.footer__addr,
+.footer__copy,
+.footer__links {
+  color: #94a3b8;
+}
+.footer__links a:hover {
+  color: #fff;
+}
+.spot__swing {
+  transform-style: preserve-3d;
+  transform-origin: left center;
+}
+.profile__backdrop {
+  background: rgba(11, 27, 58, 0.5);
+}

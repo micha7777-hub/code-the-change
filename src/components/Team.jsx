@@ -74,13 +74,23 @@ function Profile({ m, id, onClose }) {
           {showImg ? <img src={src} alt={m.name} onError={() => setBroken(true)} /> : <span>{initials(m.name)}</span>}
         </motion.div>
         <div className="profile__body">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.5 }}>
-            <span className="tag">{m.role}</span>
-            <h3>{m.name}</h3>
-            {m.major && <div className="profile__major">{m.major}</div>}
-            <p>{m.bio || `${m.role} at Code the Change.`}</p>
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07, delayChildren: 0.25 } } }}
+          >
+            <motion.span className="tag" variants={rise}>
+              {m.role}
+            </motion.span>
+            <motion.h3 variants={rise}>{m.name}</motion.h3>
+            {m.major && (
+              <motion.div className="profile__major" variants={rise}>
+                {m.major}
+              </motion.div>
+            )}
+            <motion.p variants={rise}>{m.bio || `${m.role} at Code the Change.`}</motion.p>
             {links.length > 0 && (
-              <div className="profile__links">
+              <motion.div className="profile__links" variants={rise}>
                 {links.map(([k, v]) => {
                   const I = Icon[k] || Icon.arrow
                   const href = k === 'email' ? `mailto:${v}` : v
@@ -90,13 +100,17 @@ function Profile({ m, id, onClose }) {
                     </a>
                   )
                 })}
-              </div>
+              </motion.div>
             )}
           </motion.div>
         </div>
       </motion.div>
     </motion.div>
   )
+}
+const rise = {
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -111,6 +125,7 @@ function Portrait({ m, id }) {
     <motion.div
       className={`spot__img ${showImg ? '' : 'spot__img--initials'}`}
       key={id}
+      layoutId={id}
       initial={{ opacity: 0, scale: 1.06, clipPath: 'inset(100% 0 0 0)' }}
       animate={{ opacity: 1, scale: 1, clipPath: 'inset(0% 0 0 0)' }}
       exit={{ opacity: 0, scale: 1.02 }}
@@ -121,8 +136,7 @@ function Portrait({ m, id }) {
   )
 }
 
-const PALETTE = ['#1d4ed8', '#0ea5e9', '#16a34a', '#7c3aed', '#f97316', '#db2777']
-const accentFor = (i) => PALETTE[i % PALETTE.length]
+const accentFor = () => '#1d4ed8'
 
 function TeamSpotlight({ members, onOpen }) {
   const [active, setActive] = useState(0)
@@ -130,7 +144,6 @@ function TeamSpotlight({ members, onOpen }) {
   const m = members[active]
   const id = memberId(m, active)
   const accent = accentFor(active)
-  const first = m.name.split(' ')[0]
 
   // 3D tilt toward the cursor
   const onMove = (e) => {
@@ -164,22 +177,16 @@ function TeamSpotlight({ members, onOpen }) {
       </Reveal>
 
       <div className="spot" style={{ '--accent': accent }}>
-        <div className="spot__ghost" aria-hidden="true">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span
-              key={id}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -40 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {first}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-        <Reveal className="spot__left" y={20}>
+        <div className="spot__left">
           <div className="spot__sticky">
             <div className="spot__glow" />
+            <motion.div
+              className="spot__swing"
+              initial={{ opacity: 0, rotateY: -22, x: -30 }}
+              whileInView={{ opacity: 1, rotateY: 0, x: 0 }}
+              viewport={{ once: true, margin: '-15% 0px' }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            >
             <div className="spot__frame" ref={frameRef} onMouseMove={onMove} onMouseLeave={onLeave}>
               <div className="spot__shine" />
               <AnimatePresence mode="sync" initial={false}>
@@ -189,6 +196,7 @@ function TeamSpotlight({ members, onOpen }) {
                 {String(active + 1).padStart(2, '0')} / {String(members.length).padStart(2, '0')}
               </div>
             </div>
+            </motion.div>
             <div className="spot__meta">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
@@ -203,12 +211,12 @@ function TeamSpotlight({ members, onOpen }) {
                   {m.major && <p>{m.major}</p>}
                 </motion.div>
               </AnimatePresence>
-              <button type="button" className="btn btn--ghost btn--sm" onClick={() => onOpen(active)}>
+              <button type="button" className="btn btn--primary btn--sm" onClick={() => onOpen(active)}>
                 Meet {m.name.split(' ')[0]} <Icon.arrow className="arrow" />
               </button>
             </div>
           </div>
-        </Reveal>
+        </div>
 
         <Stagger className="spot__list" gap={0.03}>
           {members.map((p, i) => (
