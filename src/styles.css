@@ -3457,3 +3457,26 @@ button.member:focus-visible .avatar {
     animation: none;
   }
 }
+
+/* Orbit state: no card chrome on hover (only the avatar reacts) */
+.member--stage:not(.member--settled):hover,
+.member--stage:not(.member--settled):focus-visible {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.member--stage:not(.member--settled) .member__bg {
+  opacity: 0 !important;
+}
+.member--stage:not(.member--settled):hover .avatar {
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.14), 0 10px 24px -8px rgba(29, 78, 216, 0.45);
+}
+/* initials avatars: all blue */
+.member:nth-child(4n + 2) .avatar,
+.member:nth-child(4n + 3) .avatar,
+.member:nth-child(4n) .avatar {
+  color: var(--blue);
+  background: linear-gradient(135deg, var(--blue-soft), #fff);
+  border-color: #dbe4ff;
+}
