@@ -127,7 +127,7 @@ function TeamStage({ members, onOpen }) {
   const intro = useRef(0)
 
   const { scrollYProgress } = useScroll({ target: wrapRef, offset: ['start start', 'end end'] })
-  const p = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.4 })
+  const p = useSpring(scrollYProgress, { stiffness: 190, damping: 34, mass: 0.3 })
 
   const words = team.heading.split(' ')
 
@@ -135,8 +135,8 @@ function TeamStage({ members, onOpen }) {
     const L = layout.current
     if (!L) return
     const reveal = Math.max(clamp01(v / 0.18), intro.current)
-    const headT = easeInOut(clamp01((v - 0.22) / 0.38))
-    const t = easeInOut(clamp01((v - 0.34) / 0.52))
+    const headT = easeInOut(clamp01((v - 0.18) / 0.34))
+    const t = easeInOut(clamp01((v - 0.28) / 0.5))
     const spin = (1 - t) * 1.35 + v * 0.3
 
     const headDY = (L.cy - L.headCY) * (1 - headT)
@@ -218,7 +218,7 @@ function TeamStage({ members, onOpen }) {
         acx: x,
         acy: y,
         theta: (i / n) * Math.PI * 2 - Math.PI / 2,
-        lag: (((i * 7) % n) / n) * 0.22,
+        lag: (((i * 7) % n) / n) * 0.14,
       }
     })
     layout.current = { sw, sh, cx: sw / 2, cy: sh / 2, headCY, R, cards }
@@ -316,7 +316,7 @@ function TeamStage({ members, onOpen }) {
                   <div className="member__role">{m.role}</div>
                   {m.major && <div className="member__major">{m.major}</div>}
                 </div>
-                <span className="member__view">View</span>
+                <span className="member__view"><Icon.arrow /></span>
               </button>
             ))}
           </div>
