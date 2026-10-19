@@ -319,14 +319,16 @@ function TeamStage({ members, onOpen }) {
         </div>
 
         <div className="container">
-          <div className="team__grid team__grid--stage">
-            {members.map((m, i) => (
-              <Fragment key={memberId(m, i)}>
-              {(i === 0 || members[i - 1].group !== m.group) && (
-                <div className="team__group mono" ref={(el) => (groupRefs.current[i] = el)}>
-                  {m.group}
+          <div className="team__groups team__groups--stage">
+            {team.groups.map((g) => (
+              <div className="team__section" key={g}>
+                <div className="team__group mono" ref={(el) => (groupRefs.current[members.findIndex((x) => x.group === g)] = el)}>
+                  <span>{g}</span>
                 </div>
-              )}
+                <div className="team__row">
+                  {members.map((m, i) =>
+                    m.group !== g ? null : (
+                      <Fragment key={memberId(m, i)}>
               <button
                 type="button"
                 className="member member--stage"
@@ -349,7 +351,11 @@ function TeamStage({ members, onOpen }) {
                 </div>
                 <span className="member__view"><Icon.arrow /></span>
               </button>
-              </Fragment>
+                      </Fragment>
+                    ),
+                  )}
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -369,10 +375,16 @@ function TeamSimple({ members, onOpen }) {
         <h2 className="h2"><Rich text={team.heading} /></h2>
         <p className="lead">{team.sub} Tap anyone to meet them.</p>
       </Reveal>
-      <Stagger className="team__grid" gap={0.05}>
-        {members.map((m, i) => (
-          <Fragment key={memberId(m, i)}>
-          {(i === 0 || members[i - 1].group !== m.group) && <div className="team__group mono">{m.group}</div>}
+      <div className="team__groups">
+        {team.groups.map((g) => (
+          <div className="team__section" key={g}>
+            <div className="team__group mono">
+              <span>{g}</span>
+            </div>
+            <Stagger className="team__row" gap={0.05}>
+              {members.map((m, i) =>
+                m.group !== g ? null : (
+                  <Fragment key={memberId(m, i)}>
           <motion.button type="button" className="member" variants={item} onClick={() => onOpen(i)}>
             <Avatar m={m} layoutId={memberId(m, i)} />
             <div className="member__info">
@@ -381,9 +393,13 @@ function TeamSimple({ members, onOpen }) {
               {m.major && <div className="member__major">{m.major}</div>}
             </div>
           </motion.button>
-          </Fragment>
+                  </Fragment>
+                ),
+              )}
+            </Stagger>
+          </div>
         ))}
-      </Stagger>
+      </div>
     </div>
   )
 }

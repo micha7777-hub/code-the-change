@@ -3483,7 +3483,6 @@ button.member:focus-visible .avatar {
 
 /* Team: role groups */
 .team__group {
-  grid-column: 1 / -1;
   font-size: 10.5px;
   letter-spacing: 0.16em;
   color: var(--ink-4);
@@ -3519,8 +3518,129 @@ button.member:focus-visible .avatar {
 .member--stage .member__major {
   font-size: 11.5px;
 }
-@media (min-width: 1200px) {
-  .team__grid--stage {
-    grid-template-columns: repeat(5, 1fr);
+
+
+/* Team: centred group rows */
+.team__groups {
+  display: grid;
+  gap: 22px;
+  margin-top: clamp(28px, 4vh, 44px);
+}
+.team__groups--stage {
+  gap: 16px;
+}
+.team__group {
+  justify-content: center;
+  padding: 0;
+  margin: 0 0 10px;
+}
+.team__group::before,
+.team__group::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-2);
+}
+.team__group span {
+  padding: 0 4px;
+}
+.team__groups--stage .team__group {
+  opacity: 0;
+  margin-bottom: 8px;
+}
+.team__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.team__row .member {
+  flex: 0 0 auto;
+  width: 228px;
+  min-height: 72px;
+  box-sizing: border-box;
+}
+.team__row .member--stage {
+  width: 224px;
+  height: 70px;
+  padding: 10px 12px;
+  align-items: center;
+}
+.team__row .member__info {
+  flex: 1;
+  min-width: 0;
+  padding-right: 16px;
+}
+.team__row .member__name,
+.team__row .member__major {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.team__row .member__role {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 1100px) {
+  .team__row .member {
+    width: calc(50% - 5px);
   }
+}
+@media (max-width: 520px) {
+  .team__row .member {
+    width: 100%;
+  }
+}
+/* Team: wider container so five cards fit per row */
+#team .container {
+  max-width: 1400px;
+}
+.team__row .member,
+.team__row .member--stage {
+  width: 250px;
+}
+@media (max-width: 1100px) {
+  .team__row .member {
+    width: calc(50% - 5px);
+  }
+}
+@media (max-width: 520px) {
+  .team__row .member {
+    width: 100%;
+  }
+}
+/* Team stage: compact so the full roster fits one screen */
+.team__groups--stage {
+  gap: 8px;
+  margin-top: 18px;
+}
+.team__groups--stage .team__group {
+  margin-bottom: 6px;
+}
+.team__row .member--stage {
+  height: 58px;
+  padding: 8px 12px;
+}
+.team__row .member--stage .avatar {
+  width: 42px;
+  height: 42px;
+  font-size: 14px;
+}
+.team__groups--stage .team__row {
+  gap: 8px;
+}
+.team-stage {
+  padding-top: calc(var(--nav-h) + 4px);
+  padding-bottom: 12px;
+}
+.team__groups--stage {
+  gap: 4px;
+  margin-top: 12px;
+}
+.team__groups--stage .team__group {
+  margin-bottom: 4px;
+}
+.team__row .member--stage {
+  height: 54px;
 }
