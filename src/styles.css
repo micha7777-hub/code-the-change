@@ -3644,3 +3644,14 @@ button.member:focus-visible .avatar {
 .team__row .member--stage {
   height: 54px;
 }
+/* Team (phones / small windows): centre the heading too */
+#team .section-head {
+  margin-inline: auto;
+  text-align: center;
+}
+#team .section-head .eyebrow {
+  justify-content: center;
+}
+#team .section-head .lead {
+  margin-inline: auto;
+}
