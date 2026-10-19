@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion'
 import { team } from '../content.js'
 import { photoFor } from '../teamPhotos.js'
@@ -138,6 +138,7 @@ function TeamStage({ members, onOpen }) {
   const infoRefs = useRef([])
   const avRefs = useRef([])
   const lineRefs = useRef([])
+  const groupRefs = useRef([])
   const layout = useRef(null)
   const intro = useRef(0)
 
@@ -193,6 +194,13 @@ function TeamStage({ members, onOpen }) {
       infoRefs.current[i].style.transform = `translate3d(${(1 - settle) * -10}px, 0, 0)`
       avRefs.current[i].style.transform = `scale(${1 + (1 - ti) * 0.3})`
       pts.push({ x: c.acx + dx, y: c.acy + dy, ti })
+    })
+
+    groupRefs.current.forEach((g, i) => {
+      if (!g) return
+      const c = L.cards[i]
+      const ti = easeInOut(clamp01((t - c.lag) / (1 - c.lag)))
+      g.style.opacity = easeOut(clamp01((ti - 0.72) / 0.28))
     })
 
     pts.forEach((a, i) => {
@@ -313,10 +321,15 @@ function TeamStage({ members, onOpen }) {
         <div className="container">
           <div className="team__grid team__grid--stage">
             {members.map((m, i) => (
+              <Fragment key={memberId(m, i)}>
+              {(i === 0 || members[i - 1].group !== m.group) && (
+                <div className="team__group mono" ref={(el) => (groupRefs.current[i] = el)}>
+                  {m.group}
+                </div>
+              )}
               <button
                 type="button"
                 className="member member--stage"
-                key={memberId(m, i)}
                 ref={(el) => (cardRefs.current[i] = el)}
                 onClick={() => onOpen(i)}
                 style={{ '--float-delay': `${(i * 0.7) % 4}s` }}
@@ -336,6 +349,7 @@ function TeamStage({ members, onOpen }) {
                 </div>
                 <span className="member__view"><Icon.arrow /></span>
               </button>
+              </Fragment>
             ))}
           </div>
         </div>
@@ -357,7 +371,9 @@ function TeamSimple({ members, onOpen }) {
       </Reveal>
       <Stagger className="team__grid" gap={0.05}>
         {members.map((m, i) => (
-          <motion.button type="button" className="member" key={memberId(m, i)} variants={item} onClick={() => onOpen(i)}>
+          <Fragment key={memberId(m, i)}>
+          {(i === 0 || members[i - 1].group !== m.group) && <div className="team__group mono">{m.group}</div>}
+          <motion.button type="button" className="member" variants={item} onClick={() => onOpen(i)}>
             <Avatar m={m} layoutId={memberId(m, i)} />
             <div className="member__info">
               <div className="member__name">{m.name}</div>
@@ -365,6 +381,7 @@ function TeamSimple({ members, onOpen }) {
               {m.major && <div className="member__major">{m.major}</div>}
             </div>
           </motion.button>
+          </Fragment>
         ))}
       </Stagger>
     </div>
@@ -372,7 +389,7 @@ function TeamSimple({ members, onOpen }) {
 }
 
 const useSimpleMode = () => {
-  const query = '(max-width: 900px), (max-height: 700px), (prefers-reduced-motion: reduce)'
+  const query = '(max-width: 1100px), (max-height: 760px), (prefers-reduced-motion: reduce)'
   const [simple, setSimple] = useState(() => (typeof window !== 'undefined' ? window.matchMedia(query).matches : false))
   useEffect(() => {
     const mq = window.matchMedia(query)
