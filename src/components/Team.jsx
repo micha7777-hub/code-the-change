@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { team } from '../content.js'
 import { photoFor } from '../teamPhotos.js'
 import Reveal, { Stagger, item } from './Reveal.jsx'
@@ -142,8 +142,16 @@ function TeamStage({ members, onOpen }) {
   const layout = useRef(null)
   const intro = useRef(0)
 
-  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ['start start', 'end end'] })
-  const p = useSpring(scrollYProgress, { stiffness: 190, damping: 34, mass: 0.3 })
+  // Scroll progress read directly every frame, eased toward the target.
+  // (Never misses a jump like loading the page at #team.)
+  const prog = useRef(0)
+  const p = { get: () => prog.current }
+  const readProgress = () => {
+    const w = wrapRef.current
+    if (!w) return 0
+    const total = w.offsetHeight - window.innerHeight
+    return total > 0 ? clamp01(-w.getBoundingClientRect().top / total) : 0
+  }
 
   const accentWords = (team.heading.match(/\*([^*]+)\*/) || ['', ''])[1].split(' ')
   const words = team.heading.replace(/\*/g, '').split(' ')
@@ -280,7 +288,23 @@ function TeamStage({ members, onOpen }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useMotionValueEvent(p, 'change', render)
+  useEffect(() => {
+    let raf = 0
+    prog.current = readProgress()
+    render(prog.current)
+    const loop = () => {
+      const target = readProgress()
+      const diff = target - prog.current
+      if (Math.abs(diff) > 0.0005) {
+        prog.current += Math.abs(diff) > 0.35 ? diff : diff * 0.22
+        render(prog.current)
+      }
+      raf = requestAnimationFrame(loop)
+    }
+    raf = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(raf)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="team-wrap" ref={wrapRef}>
